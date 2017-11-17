@@ -22,10 +22,10 @@ dotenv = begin
   dotenv_pattern = /^(?:export\s+|)(?<key>[[:alnum:]_]+)=((?<quote>["'])?(?<val>.*?[^\\])\k<quote>?|)$/
 
   # find that above node_modules/react-native-config/ios/
-  path = File.join(Dir.pwd, "../../../#{file}")
+  path = File.join(Dir.pwd, "../../../#{defaultEnvFile}")
   if !File.exists?(path)
     # try as absolute path
-    path = file
+    path = defaultEnvFile
   end
   raw = File.read(path)
 
