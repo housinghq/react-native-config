@@ -159,11 +159,12 @@ $ react-native link react-native-config
 ```
 ### Extra step for iOS to support Info.plist
 ### Should add this in your Podfile at the end
+### and run pod install after that
 pre_install do |installer|
   target 'housing' do
     #system("cp ../.env /tmp/envfile &&
-    #ruby ../node_modules/react-native-config/ios/ReactNativeConfig/BuildDotenvConfig.ruby")
-    system("cp ../.env /tmp/envfile && cd ../node_modules/react-native-config &&
+    #ruby ../node_modules/@housing/react-native-config/ios/ReactNativeConfig/BuildDotenvConfig.ruby")
+    system("cp ../.env /tmp/envfile && cd ../node_modules/@housing/react-native-config &&
     export SYMROOT=./ios/ReactNativeConfig && export BUILD_DIR=./ios/ReactNativeConfig &&
     ruby ./ios/ReactNativeConfig/BuildDotenvConfig.ruby")
   end
