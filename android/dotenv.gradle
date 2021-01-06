@@ -1,21 +1,43 @@
-def loadDotEnv(currentFlavor) {
-    def envFile = ".env"
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
-    if (project.hasProperty("defaultEnvFile")) {
-        envFile = project.defaultEnvFile
+def getCurrentFlavor() {
+    Gradle gradle = getGradle()
+
+    // match optional modules followed by the task
+    // (?:.*:)* is a non-capturing group to skip any :foo:bar: if they exist
+    // *[a-z]+([A-Za-z]+) will capture the flavor part of the task name onward (e.g., assembleRelease --> Release)
+    def pattern = Pattern.compile("(?:.*:)*[a-z]+([A-Z][A-Za-z]+)")
+    def flavor = ""
+
+    gradle.getStartParameter().getTaskNames().any { name ->
+        Matcher matcher = pattern.matcher(name)
+        if (matcher.find()) {
+            flavor = matcher.group(1).toLowerCase()
+            return true
+        }
     }
 
-    if (System.env['ENVFILE']) {
-        envFile = System.env['ENVFILE'];
-    } else if (project.hasProperty("envConfigFiles")) {
+    return flavor
+}
 
+def loadDotEnv(flavor = getCurrentFlavor()) {
+    def envFile = ".env"
+
+    if (System.env['ENVFILE']) {
+        envFile = System.env['ENVFILE']
+    } else if (System.getProperty('ENVFILE')) {
+        envFile = System.getProperty('ENVFILE')
+    } else if (project.hasProperty("envConfigFiles")) {
         // use startsWith because sometimes the task is "generateDebugSources", so we want to match "debug"
         project.ext.envConfigFiles.any { pair ->
-            if (currentFlavor.startsWith(pair.key)) {
+            if (flavor.startsWith(pair.key)) {
                 envFile = pair.value
                 return true
             }
         }
+    } else if (project.hasProperty("defaultEnvFile")) {
+        envFile = project.defaultEnvFile
     }
 
     def env = [:]
@@ -30,7 +52,7 @@ def loadDotEnv(currentFlavor) {
         f.eachLine { line ->
             def matcher = (line =~ /^\s*(?:export\s+|)([\w\d\.\-_]+)\s*=\s*['"]?(.*?)?['"]?\s*$/)
             if (matcher.getCount() == 1 && matcher[0].size() == 3) {
-                env.put(matcher[0][1], matcher[0][2])
+                env.put(matcher[0][1], matcher[0][2].replace('"', '\\"'))
             }
         }
     } else {
@@ -42,14 +64,14 @@ def loadDotEnv(currentFlavor) {
     project.ext.set("env", env)
 }
 
-loadDotEnv('.env')
+loadDotEnv()
 
 android {
     defaultConfig {
         project.env.each { k, v ->
             def escaped = v.replaceAll("%","\\\\u0025")
             buildConfigField "String", k, "\"$v\""
-            resValue "string", k, "\"$escaped\""
+            // resValue "string", k, "\"$escaped\""
         }
     }
 }
@@ -64,9 +86,9 @@ tasks.whenTaskAdded { task ->
                         if (envConfigName.contains(variantConfigString.toLowerCase())) {
                             loadDotEnv(envConfigName)
                             project.env.each { k, v ->
-                                def escaped = v.replaceAll("%","\\\\u0025")
+                                // def escaped = v.replaceAll("%","\\\\u0025")
                                 variant.buildConfigField "String", k, "\"$v\""
-                                variant.resValue "string", k, "\"$escaped\""
+                                // variant.resValue "string", k, "\"$escaped\""
                             }
                         }
                     }
