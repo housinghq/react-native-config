@@ -27,12 +27,8 @@
     "12factor"
   ],
   "license": "MIT",
-  "name": "react-native-config",
+  "name": "@housing/react-native-config",
   "private": false,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/luggit/react-native-config.git"
-  },
   "types": "./index.d.ts",
   "version": "1.0.1"
 }
