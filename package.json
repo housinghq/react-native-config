@@ -1,21 +1,34 @@
 {
-  "name": "react-native-config",
-  "version": "0.10.0",
-  "description": "Expose config variables to React Native apps",
-  "keywords": ["env", "config", "config-var", "react-native", "android", "ios", "12factor"],
-  "homepage": "https://github.com/luggg/react-native-config",
-  "contributors": [],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/luggg/react-native-config"
+  "author": {
+    "name": "Pedro Belo"
   },
-  "private": false,
-  "author": "Pedro Belo",
+  "bugs": {
+    "url": "https://github.com/luggit/react-native-config/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [],
+  "deprecated": false,
+  "description": "Expose config variables to React Native apps",
   "files": [
     "android/",
     "ios/",
     "index.js",
+    "index.d.ts",
     "react-native-config.podspec"
   ],
-  "license": "MIT"
+  "homepage": "https://github.com/luggit/react-native-config",
+  "keywords": [
+    "env",
+    "config",
+    "config-var",
+    "react-native",
+    "android",
+    "ios",
+    "12factor"
+  ],
+  "license": "MIT",
+  "name": "@housing/react-native-config",
+  "private": false,
+  "types": "./index.d.ts",
+  "version": "1.0.1"
 }

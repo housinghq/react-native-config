@@ -2,7 +2,58 @@
 
 ### Upcoming
 
-[Diff](https://github.com/luggit/react-native-config/compare/v0.10.0...master)
+[Diff](https://github.com/luggit/react-native-config/compare/v0.11.7...master)
+
+### 0.11.7
+
+- Fix envConfigFiles in build.gradle not working (#275)
+
+[Diff](https://github.com/luggit/react-native-config/compare/v0.11.6...v0.11.7)
+
+### 0.11.6
+
+- Updated gradle to v4.4 and gradle-plugin to v3.1.4 (#307)
+
+[Diff](https://github.com/luggit/react-native-config/compare/v0.11.5...v0.11.6)
+
+### 0.11.5
+
+- Fix issue with CRLF (#201)
+
+[Diff](https://github.com/luggit/react-native-config/compare/v0.11.4...v0.11.5)
+
+### 0.11.4
+
+- Another typescript fix, hopefully (ac3510b)
+
+[Diff](https://github.com/luggit/react-native-config/compare/v0.11.3...v0.11.4)
+
+### 0.11.3
+
+- Fix typescript (#204)
+
+[Diff](https://github.com/luggit/react-native-config/compare/v0.11.2...v0.11.3)
+
+### 0.11.2
+
+- Fix env selection in Android (#195)
+- Escape env values in Android (195a209)
+
+[Diff](https://github.com/luggit/react-native-config/compare/v0.11.1...v0.11.2)
+
+### 0.11.1
+
+- Fix environment selection in Android (82ee9ad)
+
+[Diff](https://github.com/luggit/react-native-config/compare/v0.11.0...v0.11.1)
+
+### 0.11.0
+
+- Fix env file selection in iOS (#185)
+- Support envfile selection as a system property (#191)
+- Typescript support (#186)
+
+[Diff](https://github.com/luggit/react-native-config/compare/v0.10.0...v0.11.0)
 
 ### 0.10.0
 
